@@ -1,7 +1,7 @@
 # @thealamenthed/wealthhealth-modal
 
 A modern, reusable, and animation-ready React modal component built with Tailwind CSS.  
-This modal was created for the HRnet refactor (Project 14 – OpenClassrooms) to replace the old `jquery.modal` plugin with a clean and accessible React alternative.
+This modal was created for the HRnet refactor (Project 14 – OpenClassrooms) to replace the old `jquery modal` plugin with a clean and accessible React alternative.
 
 ---
 
