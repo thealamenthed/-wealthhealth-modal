@@ -9,7 +9,7 @@ import {useEffect} from "react";
  * @param {string} [props.title] - Titre de la modale (optionnel)
  * @returns {JSX.Element|null} Une modale avec backdrop ou null si fermée
  */
-export function Modal({isOpen, onClose, children, title}) {
+export default function Modal({isOpen, onClose, children, title}) {
   /**
    * Ferme la modale en appuyant sur Échap
    */
@@ -51,9 +51,9 @@ export function Modal({isOpen, onClose, children, title}) {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 bg-black text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-full p-1.5 transition-all duration-200 flex items-center justify-center w-8 h-8 hover:scale-110 active:scale-95 cursor-pointer shadow-sm"
+          className="absolute top-6 right-6 bg-black text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-full p-2 transition-all duration-200 flex items-center justify-center w-9 h-9 hover:scale-110 active:scale-95"
           aria-label="Fermer la modale">
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -61,7 +61,7 @@ export function Modal({isOpen, onClose, children, title}) {
         {/* Modal Body */}
         <div className="text-center">
           {title && (
-            <h2 id="modal-title" className="text-3xl font-bold text-purple-900 mb-6 tracking-tight">
+            <h2 id="modal-title" className="text-3xl font-bold text-gray-900 mb-6 tracking-tight">
               {title}
             </h2>
           )}
@@ -71,5 +71,3 @@ export function Modal({isOpen, onClose, children, title}) {
     </div>
   );
 }
-
-export default Modal;
