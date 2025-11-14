@@ -10,13 +10,10 @@ import {useEffect} from "react";
  * @returns {JSX.Element|null} Une modale avec backdrop ou null si fermée
  */
 export default function Modal({isOpen, onClose, children, title}) {
-  console.log("Modal component rendered, isOpen:", isOpen);
-
   /**
    * Ferme la modale en appuyant sur Échap
    */
   useEffect(() => {
-    console.log("Modal useEffect, isOpen:", isOpen);
     if (!isOpen) return;
 
     const handleEscape = (e) => {
@@ -35,36 +32,26 @@ export default function Modal({isOpen, onClose, children, title}) {
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen) {
-    console.log("Modal returning null because isOpen is false");
-    return null;
-  }
+  if (!isOpen) return null;
 
-  console.log("Modal rendering JSX");
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center p-4"
-      style={{zIndex: 9999}}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby={title ? "modal-title" : undefined}>
       {/* Backdrop avec animation */}
-      <div
-        className="absolute inset-0 bg-gray-900/80 backdrop-blur-sm transition-opacity duration-300"
-        style={{backgroundColor: "rgba(17, 24, 39, 0.8)"}}
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 bg-gray-900/80 backdrop-blur-sm transition-opacity duration-300" aria-hidden="true" />
 
       {/* Modal Content avec animation */}
       <div
         className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-12 transform transition-all duration-300 scale-100"
-        style={{backgroundColor: "white", position: "relative", zIndex: 10000}}
         onClick={(e) => e.stopPropagation()}>
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 bg-black text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-full p-2 transition-all duration-200 flex items-center justify-center w-9 h-9 hover:scale-110 active:scale-95"
+          className="absolute top-6 right-6 text-gray-800  hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-full p-2 transition-all duration-200 flex items-center justify-center w-9 h-9 hover:scale-110 active:scale-95 cursor-pointer"
           aria-label="Fermer la modale">
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
