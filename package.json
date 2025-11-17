@@ -2,6 +2,8 @@
   "name": "@thealamenthed/wealthhealth-modal",
   "version": "1.0.6",
   "type": "module",
+  "author": "Dalila Lé",
+  "description": "Reusable and accessible modal component for HRnet and similar projects",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "exports": {
@@ -15,6 +17,13 @@
     "dist",
     "README.md"
   ],
+  "keywords": [
+    "modal",
+    "react",
+    "hrnet",
+    "accessibility",
+    "tailwind"
+  ],
   "types": "./dist/index.d.ts",
   "peerDependencies": {
     "react": "^18 || ^19",
@@ -26,8 +35,8 @@
   },
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs",
-    "build:esm": "esbuild src/index.js --bundle --format=esm --outfile=dist/index.js --external:react --external:react-dom --jsx=automatic",
-    "build:cjs": "esbuild src/index.js --bundle --format=cjs --outfile=dist/index.cjs --external:react --external:react-dom --jsx=automatic",
+    "build:esm": "esbuild src/index.js --bundle --format=esm --outfile=dist/index.js --external:react --external:react-dom --external:react/jsx-runtime --jsx=automatic",
+    "build:cjs": "esbuild src/index.js --bundle --format=cjs --outfile=dist/index.cjs --external:react --external:react-dom --external:react/jsx-runtime --jsx=automatic",
     "prepublishOnly": "npm run build"
   }
 }
