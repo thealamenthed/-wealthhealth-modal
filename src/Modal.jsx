@@ -1,4 +1,5 @@
 import {useEffect} from "react";
+import {createPortal} from "react-dom";
 
 /**
  * Composant Modal réutilisable pour afficher des dialogues modaux
@@ -34,26 +35,61 @@ export default function Modal({isOpen, onClose, children, title}) {
 
   if (!isOpen) return null;
 
-  return (
+  const modalContent = (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 flex items-center justify-center p-4"
+      style={{
+        zIndex: 9999,
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "1rem"
+      }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby={title ? "modal-title" : undefined}>
       {/* Backdrop avec animation */}
-      <div className="absolute inset-0 bg-gray-900/80 backdrop-blur-sm transition-opacity duration-300" aria-hidden="true" />
+      <div
+        className="absolute inset-0 transition-opacity duration-300"
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          zIndex: 1,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backdropFilter: "blur(4px)"
+        }}
+        aria-hidden="true"
+      />
 
       {/* Modal Content avec animation */}
       <div
-        className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-12 transform transition-all duration-300 scale-100"
+        className="relative rounded-3xl max-w-lg w-full p-8 md:p-10 transform transition-all duration-300 ease-out"
+        style={{
+          position: "relative",
+          zIndex: 2,
+          backgroundColor: "white",
+          borderRadius: "1.5rem",
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+          maxWidth: "32rem",
+          width: "100%",
+          padding: "2rem"
+        }}
         onClick={(e) => e.stopPropagation()}>
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 text-gray-800  hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-full p-2 transition-all duration-200 flex items-center justify-center w-9 h-9 hover:scale-110 active:scale-95 cursor-pointer"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-full p-1.5 transition-all duration-200 flex items-center justify-center w-8 h-8 hover:scale-110 active:scale-95 cursor-pointer group"
           aria-label="Fermer la modale">
-          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <svg className="h-4 w-4 transition-transform group-hover:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -61,13 +97,15 @@ export default function Modal({isOpen, onClose, children, title}) {
         {/* Modal Body */}
         <div className="text-center">
           {title && (
-            <h2 id="modal-title" className="text-3xl font-bold text-gray-900 mb-6 tracking-tight">
+            <h2 id="modal-title" className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 tracking-tight">
               {title}
             </h2>
           )}
-          <div className="mt-2">{children}</div>
+          <div className="mt-2 text-gray-600">{children}</div>
         </div>
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }
